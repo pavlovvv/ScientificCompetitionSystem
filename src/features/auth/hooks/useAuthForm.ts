@@ -23,8 +23,7 @@ export const useAuthForm = (mode: Mode) => {
     <K extends keyof FormState>(key: K) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const val = e.target.value;
-      setForm((s) => ({ ...s, [key]: val }));
-      if (val && !touched[key as string]) setTouched((t) => ({ ...t, [key]: true }));
+      setForm((state) => ({ ...state, [key]: val }));
     };
 
   const onBlur = (key: keyof FormState) => () => setTouched((t) => ({ ...t, [key]: true }));
@@ -46,7 +45,13 @@ export const useAuthForm = (mode: Mode) => {
     async (e: React.FormEvent) => {
       e.preventDefault();
       if (hasErrors) {
-        setTouched({ email: true, password: true, repeatPassword: true, fullName: true });
+        setTouched((prevTouched) => {
+          const next = { ...prevTouched };
+          (Object.keys(errors) as (keyof FormState)[]).forEach((fieldName) => {
+            if (errors[fieldName]) next[fieldName as string] = true;
+          });
+          return next;
+        });
         return;
       }
       setLoading(true);
@@ -59,7 +64,7 @@ export const useAuthForm = (mode: Mode) => {
       });
       if (mode === 'register') reset();
     },
-    [hasErrors, mode],
+    [hasErrors, errors, mode],
   );
 
   return { form, setField, onBlur, invalid, errors, loading, notice, submit, reset, setNotice };
