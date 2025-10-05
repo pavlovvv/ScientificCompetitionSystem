@@ -11,4 +11,14 @@ export default defineConfig({
       ui: '/src/common/ui',
     },
   },
+  server: {
+    port: 5176,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8081',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });
