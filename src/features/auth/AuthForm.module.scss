@@ -1,0 +1,223 @@
+$bg: #0b1020;
+$surface: #101a33;
+$text: #e8ecf6;
+$muted: #a9b3c6;
+$primary: #4e8df5;
+$primary-600: #3d78da;
+$danger: #ff6b6b;
+$success: #27c498;
+$ring: rgba(78, 141, 245, 0.45);
+
+@mixin focus-ring($color, $size: 4px) {
+  box-shadow: 0 0 0 $size $color;
+}
+
+
+.wrap {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(1200px 600px at 20% -10%, #1b2b55, transparent),
+  radial-gradient(900px 500px at 100% 0%, #15264a, transparent),
+  $bg;
+  color: $text;
+  padding: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: linear-gradient(180deg, #0f1831 0%, #0c1327 100%);
+  border: 1px solid rgba(255, 255, 255, .08);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .35);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.title {
+  font-size: 18px;
+  margin: 0;
+}
+
+.segment {
+  display: inline-flex;
+  background: #0a1430;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 10px;
+  padding: 2px;
+}
+
+.segmentBtn {
+  appearance: none;
+  background: transparent;
+  color: $muted;
+  padding: 6px 10px;
+  font-size: 13px;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all .15s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+
+  &:hover {
+    color: $text;
+  }
+}
+
+.active {
+  background: $primary;
+  color: #fff;
+}
+
+
+.notice {
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 8px 0 10px;
+  font-size: 13px;
+
+  &Ok {
+    background: rgba(39, 196, 152, .12);
+    color: #b5ffe7;
+    border: 1px solid rgba(39, 196, 152, .35);
+  }
+
+  &Err {
+    background: rgba(255, 107, 107, .12);
+    color: #ffd8d8;
+    border: 1px solid rgba(255, 107, 107, .35);
+  }
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+
+  label {
+    font-size: 13px;
+    color: $muted;
+  }
+
+  input {
+    height: 42px;
+    background: #0c1632;
+    color: $text;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 10px;
+    padding: 0 12px;
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+
+    &::placeholder {
+      color: #7e8aa3;
+    }
+
+    &:focus {
+      border-color: $primary;
+      @include focus-ring($ring, 4px);
+    }
+
+    &[aria-invalid="true"] {
+      border-color: $danger;
+      @include focus-ring(rgba($danger, .25), 3px);
+    }
+  }
+}
+
+.passwordWrap {
+  position: relative;
+  display: flex;
+
+  input {
+    flex: 1 1 auto;
+    padding-right: 50px;
+  }
+}
+
+.eyeBtn {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  height: 32px;
+  width: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .08);
+  background: #0c1632;
+  color: $muted;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+
+  &:hover {
+    color: $text;
+    border-color: rgba(255, 255, 255, .15);
+  }
+}
+
+.primaryBtn {
+  height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, $primary 0%, $primary-600 100%);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter .15s ease, transform .02s ease;
+
+  &:hover {
+    filter: brightness(1.05);
+  }
+
+  &:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.linkBtn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: $primary;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.error {
+  color: #ffb3b3;
+  font-size: 12px;
+  margin: 2px 0 0;
+}
+
+.hint {
+  text-align: center;
+  color: $muted;
+  font-size: 13px;
+  margin: 6px 0 0;
+}
